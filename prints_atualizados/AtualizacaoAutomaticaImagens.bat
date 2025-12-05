@@ -5,7 +5,7 @@ echo ================================
 echo.
 
 REM Caminho local da pasta onde estão as imagens
-SET PASTA=C:\Users\2160037633\OneDrive\PrintGitHubReclameAquiGCB\printblackreclameaqui\prints_atualizados
+SET PASTA=C:\Users\2160028356\OneDrive - Grupo Casas Bahia S.A\PrintBlackReclameAqui\printblackreclameaqui\prints_atualizados
 
 echo Verificando se as imagens existem...
 if not exist "%PASTA%\Ranking_geral.png" (

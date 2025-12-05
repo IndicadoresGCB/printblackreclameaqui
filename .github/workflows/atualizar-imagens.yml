@@ -1,0 +1,52 @@
+name: Atualizar Imagens Automáticas
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do repositório
+      uses: actions/checkout@v3
+
+    - name: Configurar Git
+      run: |
+        git config user.name "${{ github.actor }}"
+        git config user.email "actions@github.com"
+
+    - name: Validar imagens atualizadas
+      run: |
+        echo "Verificando imagens atualizadas..."
+        ls indicadoresGCB/printblackreclameaqui/prints_atualizados/
+
+        if [ ! -f indicadoresGCB/printblackreclameaqui/prints_atualizados/Ranking_geral.png ]; then
+            echo "❌ Ranking_geral.png não encontrado!"
+        else
+            echo "✔ Ranking_geral.png OK"
+        fi
+
+        if [ ! -f indicadoresGCB/printblackreclameaqui/prints_atualizados/Ranking_varejo.png ]; then
+            echo "❌ Ranking_varejo.png não encontrado!"
+        else
+            echo "✔ Ranking_varejo.png OK"
+        fi
+
+    - name: Commit automático se houver alterações
+      run: |
+        git add .
+        if ! git diff --cached --quiet; then
+          git commit -m "Atualização automática das imagens Ranking_geral.png e Ranking_varejo.png"
+        else
+          echo "Nenhuma mudança para commit."
+        fi
+
+    - name: Push automático
+      env:
+        TOKEN: ${{ secrets.TOKEN_GITHUB }}
+      run: |
+        git push https://$TOKEN@github.com/${{ github.repository }} HEAD:${{ github.ref_name }}

@@ -2,6 +2,7 @@
 echo ================================
 echo  Atualizando Imagens no GitHub
 echo ================================
+echo Created by : Carlos Filho
 echo.
 
 REM Caminho local da pasta onde estão as imagens
